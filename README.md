@@ -39,7 +39,7 @@ bash faith_fft.sh {dataset} {sample strategy} {experiment name}
 
 Depending on whether you are calibrating for relevance [R] or faithfulness [F], assign {sample strategy} according to the below. The left-hand-side (LHS) represents the strategy as defined in Figure 1 of the paper and the RHS is the strategy name in the codebase.
 
-![Contrast Sampling Strategies](/images/Faithful_Contrast_Experiments.png)
+![Contrast Sampling Strategies](https://github.com/griff4692/calibrating-summaries/blob/master/images/Faithul_Contrast_Experiments.png)
 
 
 ### Relevance [R] Strategies
