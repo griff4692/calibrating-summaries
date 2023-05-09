@@ -555,7 +555,6 @@ class DataCollatorForContrastSeq2Seq:
     positive_methods: List[str]
     negative_methods: List[str]
     mixed_methods: List[str]
-    use_mixed_methods: bool
     reference_status: str
     score_candidate_fn: Callable
     model: Optional[Any] = None

@@ -441,7 +441,6 @@ def parse_args():
     )
     parser.add_argument('--positive_methods', default='all')
     parser.add_argument('--mixed_methods', default='all')
-    parser.add_argument('-use_mixed_methods', default=False, action='store_true')
     parser.add_argument('--negative_methods', default='all')
     parser.add_argument('--reference_status', default='positive', choices=['ensure', 'remove', 'positive'])
     # For ranking objective
@@ -565,7 +564,7 @@ def main():
         pad_multiple = 8 if accelerator.use_fp16 else None
 
     if args.contrast:
-        metric_norm_fn = os.path.join(DATA_DIR, f'{args.dataset}_metric_bounds.json')
+        metric_norm_fn = os.path.join('./data', f'{args.dataset}_metric_bounds.json')
         with open(metric_norm_fn, 'r') as fd:
             stats = ujson.load(fd)
         if args.contrast_metrics == 'faithful':
@@ -590,7 +589,6 @@ def main():
             positive_methods=args.positive_methods,
             negative_methods=args.negative_methods,
             mixed_methods=args.mixed_methods,
-            use_mixed_methods=args.use_mixed_methods,
             reference_status=args.reference_status,
             set_type='soft' if args.contrast_objective == 'margin_rank' else 'hard',
             contrast_dir=contrast_dir,
@@ -611,7 +609,6 @@ def main():
             positive_methods=args.positive_methods,
             negative_methods=args.negative_methods,
             mixed_methods=args.mixed_methods,
-            use_mixed_methods=args.use_mixed_methods,
             reference_status=args.reference_status,
             set_type='soft' if args.contrast_objective == 'margin_rank' else 'hard',
             contrast_dir=contrast_dir,

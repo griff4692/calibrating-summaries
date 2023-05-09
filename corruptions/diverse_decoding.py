@@ -159,11 +159,6 @@ def generate(args, split, split_dataset, model, tokenizer, output_dir, verbose=T
     num_complete = 0
     uuids = dataset_subset['uuid']
     n = len(uuids)
-    if 'AMLT_OUTPUT_DIR' in os.environ and os.environ['AMLT_OUTPUT_DIR'] is not None:
-        singularity_out = os.environ['AMLT_OUTPUT_DIR']
-        print(f'Running on singularity. Saving results to {singularity_out} instead of {output_dir}')
-        output_dir = os.environ['AMLT_OUTPUT_DIR']
-        os.makedirs(output_dir, exist_ok=True)
 
     for batch_idx, batch in enumerate(tqdm(dataloader, total=len(dataloader))):
         batch_suffix = '_' + str(batch_idx)

@@ -40,7 +40,7 @@ def df_to_table(args, df):
     print(','.join(output_str))
 
     import ujson
-    metric_norm_fn = os.path.join(args.data_dir, f'{args.dataset}_metric_bounds.json')
+    metric_norm_fn = os.path.join('./data', f'{args.dataset}_metric_bounds.json')
     with open(metric_norm_fn, 'r') as fd:
         stats = ujson.load(fd)
 

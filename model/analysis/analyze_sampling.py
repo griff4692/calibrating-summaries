@@ -219,7 +219,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     dummy = AutoTokenizer.from_pretrained('sshleifer/bart-tiny-random')
 
-    metric_norm_fn = os.path.join(args.data_dir, f'{args.dataset}_metric_bounds.json')
+    metric_norm_fn = os.path.join('./data', f'{args.dataset}_metric_bounds.json')
     with open(metric_norm_fn, 'r') as fd:
         stats = ujson.load(fd)
 
@@ -259,7 +259,6 @@ if __name__ == '__main__':
         mixed_methods='all',
         negative_methods='none' if args.metric == 'relevance' else 'all',
         reference_status='remove' if args.metric == 'relevance' else 'positive',
-        use_mixed_methods=args.metric == 'relevance'
     )
 
     pattern = os.path.join(args.data_dir, args.dataset, 'corruptions', args.split, '*.json')
