@@ -376,10 +376,5 @@ if __name__ == '__main__':
     print('Statistics returned. Storing them in a dataframe with original columns.')
     augmented_df = pd.DataFrame(augmented_records)
     n = len(augmented_df)
-
-    if 'AMLT_OUTPUT_DIR' in os.environ and os.environ['AMLT_OUTPUT_DIR'] is not None:
-        out_dir = os.environ['AMLT_OUTPUT_DIR']
-        os.makedirs(out_dir, exist_ok=True)
-        out_fn = os.path.join(out_dir, out_fn.split('/')[-1])
     print(f'Saving {n} to {out_fn}')
     augmented_df.to_csv(out_fn, index=False)

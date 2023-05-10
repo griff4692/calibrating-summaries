@@ -1,9 +1,8 @@
 #!/bin/bash
 set -e
 
-#FP='/home/ga2530/data_tmp/pubmed/intrinsic_swaps.csv'
 DATASET=$1  # "pubmed"
-FP=$2  # '/home/ga2530/data_tmp/pubmed/mask_and_fill/span_fills.csv'
+FP=$2
 if [ $3 == "all" ]; then
   METRICS="rouge extractive_fragments bert_score bart_score fact_score"
 elif [ $3 == "relevance" ]; then

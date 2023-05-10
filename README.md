@@ -1,12 +1,12 @@
 # Background
 
-This is the official PyTorch codebase for the ACL 2023 paper: [What are the Desired Characteristics of Calibration Sets? Identifying Correlates on Long Form Scientific Summarization](https://openreview.net/pdf?id=bIC0BfWzCs).
+This is the official PyTorch / HuggingFace codebase for the ACL 2023 paper: [What are the Desired Characteristics of Calibration Sets? Identifying Correlates on Long Form Scientific Summarization](https://openreview.net/pdf?id=bIC0BfWzCs).
 
-This repository provides an adaptable toolkit for constructing, selecting, and optimizing contrast sets for relevance and faithfulness calibration across three long-form scientific summariation datasets (spanning Chemistry, Clinical, and Biomedical). 
+This repository provides an adaptable toolkit for constructing, selecting, and optimizing contrast sets for relevance and faithfulness calibration across three long-form scientific summariation datasets (spanning Chemistry, Clinical, and Biomedical).
 
 It can be adapted for other summarization datasets in other domains as well.
 
-Please feel free to submit pull requests or raise issues on the tracker. The code will be actively maintained by the authors.
+**We encourage you to submit pull requests and raise issues! The code will be actively maintained by the authors.**
 
 # Code Setup
 
@@ -253,12 +253,26 @@ ensure -> Ensure reference is included in every positive subset
 positive [Default] -> Treat the reference just like the other positive examples (paraphrases).
 ```
 
+# Evaluation
+
+## Inference
+
+Run `python model/run.py --experiment {experiment} --dataset {dataset}` with the same values for `{experiment}` and `{dataset}` used for training.
+
+At the end of the script it will save to a csv file and log the name.
+
+## Evaluation
+
+Run `bash eval/run_all.sh {dataset} {path-to-csv} {metrics}`
+
+where `{path-to-csv}` is from above and metrics is one of `{all,faithful,relevance}`.
+ 
 # Citation
 
 If you use this codebase for your research, please cite:
 
 ```angular2html
-@article{adamsdesired,
+@article{adams-et-al-desired-2023,
   title={What are the Desired Characteristics of Calibration Sets? Identifying Correlates on Long Form Scientific Summarization},
   author={Adams, Griffin and Nguyen, Bichlien and Smith, Jake and Xia, Yingce and Xie, Shufang and Ostropolets, Anna and Deb, Budhaditya and Frost, Kali and Chen, Yuan-Jyue and Naumann, Tristan and others}
 }

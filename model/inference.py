@@ -74,12 +74,6 @@ def main(args):
     weight_dir = os.path.join(DATA_DIR, 'weights')
     experiment_dir = os.path.join(weight_dir, args.experiment)
     args.output_dir = os.path.join(experiment_dir, args.results_name)
-    if 'AMLT_OUTPUT_DIR' in os.environ and os.environ['AMLT_OUTPUT_DIR'] is not None:
-        singularity_out = os.environ['AMLT_OUTPUT_DIR']
-        print(f'Running on singularity. Saving results to {singularity_out} instead of {args.output_dir}')
-        args.output_dir = os.environ['AMLT_OUTPUT_DIR']
-        args.output_dir = os.path.join(os.environ['AMLT_OUTPUT_DIR'], 'results')
-        os.makedirs(args.output_dir, exist_ok=True)
     os.makedirs(args.output_dir, exist_ok=True)
     print(f'Saving all outputs to {args.output_dir}')
 

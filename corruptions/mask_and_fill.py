@@ -216,11 +216,7 @@ if __name__ == '__main__':
         print('Mean removed tokens: ', augmented_df['removed_tokens'].mean())
         print('Mean masks: ', augmented_df['num_masks'].mean())
 
-        if 'AMLT_OUTPUT_DIR' in os.environ and os.environ['AMLT_OUTPUT_DIR'] is not None:
-            out_dir = os.environ['AMLT_OUTPUT_DIR']
-            os.makedirs(out_dir, exist_ok=True)
-        else:
-            out_dir = mask_and_fill_dir
+        out_dir = mask_and_fill_dir
         out_fn = os.path.join(out_dir, f'span_fills{chunk_suffix}.csv')
         print(f'Saving {len(augmented_df)} filled in examples to {out_fn}')
         augmented_df.to_csv(out_fn, index=False)
