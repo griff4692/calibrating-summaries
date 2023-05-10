@@ -8,13 +8,21 @@ It can be adapted for other summarization datasets in other domains as well.
 
 **We encourage you to submit pull requests and raise issues! The code will be actively maintained by the authors.**  Otherwise, please reach out to `griffin.adams@columbia.edu`.
 
-# Code Setup
+#  Setup
 
 ```angular2html
 pip install -e .
 cd transformers && pip install -e .
 python -m nltk.downloader stopwords
 mkdir ~/data_tmp
+```
+
+## Download Data
+
+To download the `Fine-Tuned` PRIMERA and Long T5 models, which are used for initialization the weights for calibration (`Further Fine-Tuning`, and download the pre-processed and scored candidate sets (`corruptions`), run 
+
+```
+bash data/download.sh {dataset}
 ```
 
 The **FactScore** metric described in the paper simply uses the [MultiVerS](https://aclanthology.org/2022.findings-naacl.6/) model trained on the [SciFact dataset](https://aclanthology.org/2020.emnlp-main.609/)). To be able to run it, download the model weights from Wadden et al:
@@ -24,7 +32,7 @@ wget -O ~/data_tmp/scifact.ckpt https://scifact.s3.us-west-2.amazonaws.com/longc
 wget -O ~/data_tmp/longformer_large_science.ckpt https://scifact.s3.us-west-2.amazonaws.com/longchecker/latest/checkpoints/longformer_large_science.ckpt
 ```
 
-# Preprocessing Data
+## Preprocessing
 
 To pre-tokenize the datasets, run:
 
@@ -34,21 +42,9 @@ python preprocess/preprocess.py --dataset {pubmed,clinical,chemistry} --model {p
 
 (T5 stands for Long-T5.)
 
-# Creating Contrast Sets
-
-## Setup
+# Re-Creating Contrast Sets
 
 `cd corruptions/`
-
-## Quickstart
-
-Download pre-processed contrast sets for training and validation:
-
-```angular2html
-bash download.sh {dataset}
-```
-
-## Recreate
 
 To recreate the datasets, separately run the following scripts `reference.py`, `mask_and_fill.py`, `diverse_decoding.py`, and `entity/swap.py`, before running `merge.py`.
 
@@ -57,8 +53,6 @@ Before running `entity/swap.py`, you must run `entity/bern_entities.py` for chem
 # Training Calibration Models
 
 Calibration defines a set of offline methods for aligning model outputs to quality metrics.  In this codebase, we consider two metrics for summarization: **relevance**, and **faithfulness**.
-
-## Setup
 
 `cd model/`
 
@@ -253,15 +247,15 @@ ensure -> Ensure reference is included in every positive subset
 positive [Default] -> Treat the reference just like the other positive examples (paraphrases).
 ```
 
-# Evaluation
+# Using and Evaluating Calibration Models
 
 ## Inference
 
-Run `python model/run.py --experiment {experiment} --dataset {dataset}` with the same values for `{experiment}` and `{dataset}` used for training.
+Run `python model/inference.py --experiment {experiment} --dataset {dataset}` with the same values for `{experiment}` and `{dataset}` used for training.
 
 At the end of the script it will save to a csv file and log the name.
 
-## Evaluation
+## Metrics
 
 Run `bash eval/run_all.sh {dataset} {path-to-csv} {metrics}`
 
