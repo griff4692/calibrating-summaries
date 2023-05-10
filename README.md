@@ -21,7 +21,18 @@ The **FactScore** metric described in the paper simply uses the [MultiVerS](http
 
 ```angular2html
 wget -O ~/data_tmp/scifact.ckpt https://scifact.s3.us-west-2.amazonaws.com/longchecker/latest/checkpoints/scifact.ckpt
+wget -O ~/data_tmp/longformer_large_science.ckpt https://scifact.s3.us-west-2.amazonaws.com/longchecker/latest/checkpoints/longformer_large_science.ckpt
 ```
+
+# Preprocessing Data
+
+To pre-tokenize the datasets, run:
+
+```angular2html
+python preprocess/preprocess.py --dataset {pubmed,clinical,chemistry} --model {primera,t5}
+```
+
+(T5 stands for Long-T5.)
 
 # Creating Contrast Sets
 

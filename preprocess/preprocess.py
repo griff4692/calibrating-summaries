@@ -4,7 +4,7 @@ import os
 import regex as re
 
 import argparse
-from datasets import load_dataset
+from datasets import load_dataset, load_from_disk
 from datasets import Dataset, DatasetDict
 import pandas as pd
 import numpy as np
@@ -34,35 +34,44 @@ def linearize_mimic(text):
     return output_str.strip()
 
 
+def linearize_chemistry(example):
+    DELIM = '<|>'
+    headers = example['headers'].split(DELIM)
+    sections = example['sections'].split(DELIM)
+
+    out_str = ''
+    for header, body in zip(headers, sections):
+        if header is not None and len(header.strip()) > 0:
+            out_str += header.strip() + '\n\n'
+        paragraphs = [x.strip() for x in re.split('</?p>', body) if len(x.strip()) > 0]
+        out_str += '\n\n'.join(paragraphs)
+        out_str += '\n\n'
+    return out_str.strip()
+
+
 def load_chemistry(contrast_subsample=False):
-    data_fn = os.path.join(DATA_DIR, 'chemistry', 'processed_docs.json')
-    print(f'Opening processed data from {data_fn}')
-    with open(data_fn, 'r') as fd:
-        dataset = ujson.load(fd)
+    dataset = load_dataset('griffin/ChemSum')
 
-        splits = defaultdict(list)
-        for example in tqdm(dataset):
-            splits[example['split']].append(process(example))
+    dataset = dataset.rename_columns({
+        'abstract': 'target'
+    })
 
-        train_df = pd.DataFrame(splits['train'])
-        if contrast_subsample:
-            uuid_fn = os.path.join(DATA_DIR, 'chemistry', 'contrast_uuids.csv')
-            uuids = pd.read_csv(uuid_fn)
-            uuids_to_keep = set(uuids[uuids['split'] == 'train']['uuid'])
-            train_df = train_df[train_df['uuid'].isin(uuids_to_keep)]
+    if contrast_subsample:
+        uuid_fn = os.path.join(DATA_DIR, 'chemistry', 'contrast_uuids.csv')
+        uuids = pd.read_csv(uuid_fn)
+        uuids_to_keep = set(uuids[uuids['split'] == 'train']['uuid'])
+        dataset_idxs_to_keep = [i for i, uuid in enumerate(dataset['train']['uuid']) if uuid in uuids_to_keep]
+        sub_n = len(dataset_idxs_to_keep)
+        n = len(dataset['train'])
+        print(f'Returning {sub_n}/{n} of the train set reserved for CL')
+        dataset['train'] = dataset['train'].select(dataset_idxs_to_keep)
 
-        validation_df = pd.DataFrame(splits['validation'])
-        test_df = pd.DataFrame(splits['test'])
-        train_dataset = Dataset.from_dict(train_df, split='train')
-        validation_dataset = Dataset.from_dict(validation_df, split='validation')
-        test_dataset = Dataset.from_dict(test_df, split='test')
-
-        print(f'{len(train_dataset)} / {len(validation_dataset)} / {len(test_dataset)} Train / Val / Test splits')
-
-        dataset = DatasetDict(
-            {'train': train_dataset, 'test': test_dataset, 'validation': validation_dataset}
+    for split in ['train', 'validation', 'test']:
+        dataset[split] = dataset[split].map(
+            linearize_chemistry, remove_columns=['sections', 'headers']
         )
-        return dataset
+
+    return dataset
 
 
 def load_clinical(contrast_subsample=False):
@@ -136,35 +145,6 @@ def data_loader(name, contrast_subsample=False):
         return load_clinical(contrast_subsample=contrast_subsample)
     else:
         raise Exception('Not implemented Yet!')
-
-
-def linearize_sections(sections):
-    out_str = ''
-    for section in sections:
-        if section['header'] is not None:
-            out_str += section['header'] + '\n\n'
-        paragraphs = [x.strip() for x in re.split('</?p>', section['body']) if len(x.strip()) > 0]
-        out_str += '\n\n'.join(paragraphs)
-        out_str += '\n\n'
-    return out_str.strip()
-
-
-def process(example):
-    return {
-        'uuid': example['uuid'],
-        'fp': example['fp'],
-        'fn': example['fn'],
-        'input': linearize_sections(example['sections']),
-        'target': example['abstract'],
-    }
-
-
-def process_mimic(example):
-    return {
-        'uuid': example['example_id'],
-        'input': linearize_mimic(example['source']),
-        'target': linearize_mimic(example['target']),
-    }
 
 
 if __name__ == '__main__':

@@ -1,4 +1,3 @@
-
 def get_batch_ranges(n, batch_size):
     batch_starts = list(range(0, n, batch_size))
     batch_ranges = []
