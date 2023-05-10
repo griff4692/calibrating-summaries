@@ -1,16 +1,13 @@
-from collections import defaultdict
-import ujson
 import os
 import regex as re
 
 import argparse
-from datasets import load_dataset, load_from_disk
+from datasets import load_dataset
 from datasets import Dataset, DatasetDict
 import pandas as pd
 import numpy as np
 import swifter
 from transformers import AutoTokenizer, T5Tokenizer
-from tqdm import tqdm
 
 
 T5_MODEL = 'google/long-t5-tglobal-base'
@@ -50,7 +47,7 @@ def linearize_chemistry(example):
 
 
 def load_chemistry(contrast_subsample=False):
-    dataset = load_dataset('griffin/ChemSum')
+    dataset = load_dataset('griffin/ChemSum', use_auth_token=True)
 
     dataset = dataset.rename_columns({
         'abstract': 'target'
