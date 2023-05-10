@@ -6,7 +6,7 @@ This repository provides an adaptable toolkit for constructing, selecting, and o
 
 It can be adapted for other summarization datasets in other domains as well.
 
-**We encourage you to submit pull requests and raise issues! The code will be actively maintained by the authors.**
+**We encourage you to submit pull requests and raise issues! The code will be actively maintained by the authors.**  Otherwise, please reach out to `griffin.adams@columbia.edu`.
 
 # Code Setup
 
