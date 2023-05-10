@@ -16,7 +16,11 @@ python -m nltk.downloader stopwords
 mkdir ~/data_tmp
 ```
 
-## Download Data
+## Chemistry Dataset
+
+If you just want to use the Chemistry dataset, please feel free to load it with `dataset = load_chemistry()` in `preprocess/preprocess.py`.  This will load the dataset from HuggingFace `load_dataset('griffin/ChemSum')` and linearize the sections into a single `input` string to be used more easily for summarization.
+
+## Download Weights / Calibration Data
 
 To download the `Fine-Tuned` PRIMERA and Long T5 models, which are used for initialization the weights for calibration (`Further Fine-Tuning`, and download the pre-processed and scored candidate sets (`corruptions`), run 
 
