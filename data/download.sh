@@ -15,11 +15,11 @@ LONG_T5_FN="long_t5_ft_${DATASET}"
 if [ "$DATASET" = "chemistry" ]; then
   PRIMERA_LINK="https://drive.google.com/file/d/1V0rHV9UQ8jmtuywrBbNpOtwptADFhp9V/view?usp=share_link"
   LONG_T5_LINK="https://drive.google.com/file/d/1wbKF0UPf2sKPu8b-aOLMngrLHpxDW2QW/view?usp=share_link"
-  CORRUPTION_LINK="TODO"
+  CORRUPTION_LINK="https://drive.google.com/file/d/1lv00wDMeDwliyr1ZCW0Zx0SC7oPZqXmB/view?usp=share_link"
 else
   PRIMERA_LINK="https://drive.google.com/file/d/105ROQ-pbWXExpqn2BjBhXSoEA-lL8WN5/view?usp=share_link"
   LONG_T5_LINK="https://drive.google.com/file/d/1ZnKcUS8CN1QMavslVX3WnDa9UjgLcnFQ/view?usp=share_link"
-  CORRUPTION_LINK="TODO"
+  CORRUPTION_LINK="https://drive.google.com/file/d/1aO-cJb-6A6buaaa4c1fENuf6kXDTuBQR/view?usp=share_link"
 fi
 
 PRIMERA_FILE_ID=$(echo $PRIMERA_LINK | sed 's/.*d\/\([^.]*\)\/.*/\1/')
