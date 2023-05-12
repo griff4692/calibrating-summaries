@@ -47,7 +47,7 @@ def linearize_chemistry(example):
 
 
 def load_chemistry(contrast_subsample=False):
-    dataset = load_dataset('griffin/ChemSum', use_auth_token=True)
+    dataset = load_dataset('griffin/ChemSum')
 
     dataset = dataset.rename_columns({
         'abstract': 'target'
