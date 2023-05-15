@@ -28,7 +28,7 @@ To download the `Fine-Tuned` PRIMERA and Long T5 models, which are used for init
 bash data/download.sh {dataset}
 ```
 
-The **FactScore** metric described in the paper simply uses the [MultiVerS](https://aclanthology.org/2022.findings-naacl.6/) model trained on the [SciFact dataset](https://aclanthology.org/2020.emnlp-main.609/)). To be able to run it, download the model weights from Wadden et al:
+The **FactScore** metric described in the paper simply uses the [MultiVerS](https://aclanthology.org/2022.findings-naacl.6/) model trained on the [SciFact dataset](https://aclanthology.org/2020.emnlp-main.609/). To be able to run it, download the model weights from Wadden et al:
 
 ```angular2html
 wget -O ~/data_tmp/scifact.ckpt https://scifact.s3.us-west-2.amazonaws.com/longchecker/latest/checkpoints/scifact.ckpt
