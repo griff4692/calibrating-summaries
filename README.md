@@ -1,6 +1,6 @@
 # Background
 
-This is the official PyTorch / HuggingFace codebase for the ACL 2023 paper: [What are the Desired Characteristics of Calibration Sets? Identifying Correlates on Long Form Scientific Summarization](https://openreview.net/pdf?id=bIC0BfWzCs).
+This is the official PyTorch / HuggingFace codebase for the ACL 2023 paper: [What are the Desired Characteristics of Calibration Sets? Identifying Correlates on Long Form Scientific Summarization](https://arxiv.org/abs/2305.07615).
 This repository provides an adaptable toolkit for constructing, selecting, and optimizing contrast sets for relevance and faithfulness calibration across three long-form scientific summariation datasets (spanning Chemistry, Clinical, and Biomedical).
 
 It can be adapted for other summarization datasets in other domains as well.
