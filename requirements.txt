@@ -4,6 +4,7 @@ datasets
 deepspeed
 dill
 evaluate
+ftfy
 fuzzywuzzy
 gdown
 lxml

@@ -32,7 +32,7 @@ def linearize_mimic(text):
 
 
 def linearize_chemistry(example):
-    DELIM = '<|>'
+    DELIM = '<!>'
     headers = example['headers'].split(DELIM)
     sections = example['sections'].split(DELIM)
 
@@ -43,7 +43,8 @@ def linearize_chemistry(example):
         paragraphs = [x.strip() for x in re.split('</?p>', body) if len(x.strip()) > 0]
         out_str += '\n\n'.join(paragraphs)
         out_str += '\n\n'
-    return out_str.strip()
+    example['input'] = out_str.strip()
+    return example
 
 
 def load_chemistry(contrast_subsample=False):
