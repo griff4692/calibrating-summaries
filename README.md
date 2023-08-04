@@ -1,6 +1,6 @@
 # Background
 
-This is the official PyTorch / HuggingFace codebase for the ACL 2023 paper (Oral Spotlight): [What are the Desired Characteristics of Calibration Sets? Identifying Correlates on Long Form Scientific Summarization](https://arxiv.org/abs/2305.07615).
+This is the official PyTorch / HuggingFace codebase for the ACL 2023 paper (Oral Spotlight): [What are the Desired Characteristics of Calibration Sets? Identifying Correlates on Long Form Scientific Summarization](https://aclanthology.org/2023.acl-long.587).
 This repository provides an adaptable toolkit for constructing, selecting, and optimizing contrast sets for relevance and faithfulness calibration across three long-form scientific summariation datasets (spanning Chemistry, Clinical, and Biomedical).
 
 It can be adapted for other summarization datasets in other domains as well.
@@ -269,8 +269,25 @@ where `{path-to-csv}` is from above and metrics is one of `{all,faithful,relevan
 If you use this codebase for your research, please cite:
 
 ```angular2html
-@article{adams-et-al-desired-2023,
-  title={What are the Desired Characteristics of Calibration Sets? Identifying Correlates on Long Form Scientific Summarization},
-  author={Adams, Griffin and Nguyen, Bichlien and Smith, Jake and Xia, Yingce and Xie, Shufang and Ostropolets, Anna and Deb, Budhaditya and Frost, Kali and Chen, Yuan-Jyue and Naumann, Tristan and others}
+@inproceedings{adams-etal-2023-desired,
+    title = "What are the Desired Characteristics of Calibration Sets? Identifying Correlates on Long Form Scientific Summarization",
+    author = "Adams, Griffin  and
+      Nguyen, Bichlien  and
+      Smith, Jake  and
+      Xia, Yingce  and
+      Xie, Shufang  and
+      Ostropolets, Anna  and
+      Deb, Budhaditya  and
+      Chen, Yuan-Jyue  and
+      Naumann, Tristan  and
+      Elhadad, No{\'e}mie",
+    booktitle = "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2023",
+    address = "Toronto, Canada",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.acl-long.587",
+    pages = "10520--10542",
+    abstract = "Summarization models often generate text that is poorly calibrated to quality metrics because they are trained to maximize the likelihood of a single reference (MLE). To address this, recent work has added a calibration step, which exposes a model to its own ranked outputs to improve relevance or, in a separate line of work, contrasts positive and negative sets to improve faithfulness. While effective, much of this work has focused on \textit{how} to generate and optimize these sets. Less is known about \textit{why} one setup is more effective than another. In this work, we uncover the underlying characteristics of effective sets. For each training instance, we form a large, diverse pool of candidates and systematically vary the subsets used for calibration fine-tuning. Each selection strategy targets distinct aspects of the sets, such as lexical diversity or the size of the gap between positive and negatives. On three diverse scientific long-form summarization datasets (spanning biomedical, clinical, and chemical domains), we find, among others, that faithfulness calibration is optimal when the negative sets are extractive and more likely to be generated, whereas for relevance calibration, the metric margin between candidates should be maximized and surprise{--}the disagreement between model and metric defined candidate rankings{--}minimized.",
 }
 ```
